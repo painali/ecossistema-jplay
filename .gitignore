@@ -1,0 +1,39 @@
+# ------------------
+# .class:
+# ------------------
+*.class
+
+# ------------------
+# Eclipse(IDE):
+# ------------------
+bin/
+.settings/
+.classpath
+.project
+
+# ------------------
+# Pasta auxiliar:
+# ------------------
+tmp/
+
+# ------------------
+# Netbeans:
+# ------------------
+build/
+dist/
+nbproject/
+manifest.mf
+build.xml
+
+# ------------------
+# Intelij:
+# ------------------
+.idea/
+*.iml
+ 
+# ------------------
+# Pacote de Teste:
+# ------------------
+# test/
+/src/nbproject/private/
+/src/build/
