@@ -21,32 +21,17 @@ public class Ambiente {
     public static final int TAB_SIZE_MIN = 0;
 
     
-    public Ambiente(Window window) {
-        janela = window;
-        cena = new Scene();
-        cena.loadFromFile(URL.scenario("cenario.scn"));
-        ator = new Ator(650,450,"ator.png",20);
-        ator.update();
+    public Ambiente(Window window, int numAtores) {
+       
+        carregarAtores();
+        carregarAmbiente(this.atorList);
+        carregarCenario(window);
         run();
     }
     
-    public Ambiente() {
-        
-        this.tab = new char[TAB_SIZE_MAX][TAB_SIZE_MAX];
-    
-        for (int i = 0; i < TAB_SIZE_MAX; i++) 
-            for (int j = 0; j < TAB_SIZE_MAX; j++) 
-                this.tab[i][j] = ID.SOLO.getCharID();
-    }    
-
     private void run() {
         while(true) {
-            /* Fazer a cena movimentar com o ator */
-            //cena.moveScene(ator);
-            //ator.x += cena.getXOffset();
-            //ator.y += cena.getYOffset();
-
-            /* Cena fixa, é o que eu preciso.. */
+            /* Cena fixa */
             cena.draw();                  
             ator.caminho(cena);
             ator.draw();
@@ -55,7 +40,65 @@ public class Ambiente {
         }
     }
     
-    public void exibir() {
+    private void carregarCenario(Window window) {
+        this.janela = window;
+        this.cena = new Scene();
+        cena.loadFromFile(URL.scenario("cenario.scn"));        
+    }
+    
+    private void carregarAtores() {
+   
+        //ator = new Ator(650,450,"ator.png",20);
+        //ator.update();
+        
+        String filename[] = {"ator.png",};
+        int numFrames[] = {20};
+        int xRand,yRand;
+                
+        for(int i=0; i < numAtores; i++) {
+            
+            xRand = rand.nextInt(TAB_SIZE_MAX);
+            yRand = rand.nextInt(TAB_SIZE_MAX);
+            /* Fazer a verificação de não gerar na mesma posição, antes do construtor... */ 
+            atorList.add(i, new Ator(i,Auxiliar.getLetraRand(),xRand,yRand,filename[i],numFrames[i]));
+            this.numAtores++;
+        }
+   
+    }
+    
+    private void carregarAmbiente(ArrayList<Ator> atores) {
+        
+        this.tab = new char[TAB_SIZE_MAX][TAB_SIZE_MAX];
+        char ambiente[] = new char[8];
+        int i = 3, posVetorCharRand;
+        
+        /* Cria vetor de id para char ambiente */
+        ambiente[0] = ID.SOLO.getCharID();
+        ambiente[1] = ID.FOOD.getCharID();
+        ambiente[2] = ID.TREE.getCharID();
+        
+        for(Ator ator: atores) {
+            ambiente[i] = ator.getNome();
+            i++;
+        }
+        /* Insere os charIDs no ambiente */
+    	for(i = 0; i < TAB_SIZE_MAX; i++) { 
+            for(int j = 0; j < TAB_SIZE_MAX; j++) {
+                posVetorCharRand = rand.nextInt(ambiente.length);
+                this.setChar(ambiente[posVetorCharRand], (byte)i, (byte)j);
+                // cena.changeTile(x,y,(int) parametroIntImg);
+            }
+        }
+    }
+
+    //@Override
+    public void removeAtor(Ator ator) {
+        atorList.remove(ator);
+        this.numAtores--;
+    }
+    
+    //@Override
+    public void exibirNoConsole() {
         for (int i = 0; i < TAB_SIZE_MAX; i++) {
             for (int j = 0; j < TAB_SIZE_MAX; j++) {
                 System.out.printf("|"+tab[i][j]);
@@ -64,36 +107,7 @@ public class Ambiente {
         }
     }
     
-    public void addAtor(Ator ator, byte i, byte j) {
-        atorList.add(ator);
-        this.tab[i][j] = ator.getNome();
-        this.numAtores++;
-    }
-    
-    public void addAtor(Ator ator) {
-        atorList.add(ator);
-    	this.numAtores++;
-    }
-
-    public void removeAtor(Ator ator) {
-        atorList.remove(ator);
-        this.numAtores--;
-    }
-    
-    public void gerarAmbiente() {  
-
-        /* Gerar junto com atores */
-        char tipoAmbiente[] = {ID.SOLO.getCharID(),ID.FOOD.getCharID()};
-    	
-    	for(int i = 0; i < TAB_SIZE_MAX; i++) { 
-    		for(int j = 0; j < TAB_SIZE_MAX; j++) {
-                    this.setChar(tipoAmbiente[rand.nextInt(tipoAmbiente.length - 1)], (byte)i, (byte)j);
-                    // cena.changeTile(x,y,(int) parametroIntImg);
-                    
-                }
-        }
-    }
-    
+    //@Override
     public byte batalha(Ator a, Ator b) {
     	byte retorno;
     	int indexA = 0;

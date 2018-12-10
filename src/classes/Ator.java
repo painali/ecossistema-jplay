@@ -27,27 +27,17 @@ public class Ator extends Sprite {
    
     Controle controle = new Controle();
     
-    public Ator(String fileName, int numFrames) {
-        super(fileName, numFrames);
-    }
-    
-    public Ator(int x, int y, String fileName, int numFrames) {
-        //super(fileName,numFrames);
+    public Ator(int id, char nome, int x, int y, String fileName, int numFrames) {
         super(URL.sprite(fileName), numFrames);
+        this.energia = Energia.INICIAL.getValor();
         this.x = x;
         this.y = y;
         this.setTotalDuration(2000);
-
-    }    
-
-    public Ator(Sistema sistema, int id, char nome, int energia, String fileName, int numFrames) {
-        super(fileName, numFrames);
-        this.sistema = sistema;
         this.id = id;
         this.nome = nome;
-        this.energia = energia;
     }
     
+  
     /**
      * Controle de Caminho que não irá permitir que o personagem 
      * ultrapasse os bloqueios

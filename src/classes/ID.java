@@ -9,7 +9,7 @@ public enum ID {
     
     SOLO(' ',1),
     FOOD('+',2),
-    ATOR('#',3);
+    TREE('#',3);
 
     
     private final char charID;

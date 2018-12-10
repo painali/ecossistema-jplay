@@ -10,6 +10,9 @@ import java.util.Random;
 
 public class Auxiliar {
 
+    
+    private static Random rand = new Random();
+    
     private static void pauseScript(int tSeg) {
         try {
            Thread.sleep(tSeg * 1000);
@@ -17,8 +20,6 @@ public class Auxiliar {
             
         }
     }
-
-    private static Random rand = new Random();
 	
     public static char getLetraRand() {
 	String ALFABETO="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
