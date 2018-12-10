@@ -1,11 +1,14 @@
+package classes;
 import jplay.*;
 
 import javax.swing.*;
+
 
 public class TesteJPlay {
     private Scene cena;
     private Window janela;
     Ambiente amb;
+    
         public TesteJPlay(Window window){
             janela = window;
             cena = new Scene();

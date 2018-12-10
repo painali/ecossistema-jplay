@@ -29,6 +29,10 @@ public class Ambiente {
         run();
     }
     
+    public Ambiente() {
+        
+    }
+    
     private void run() {
         while(true) {
             /* Cena fixa */

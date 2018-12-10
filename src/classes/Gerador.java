@@ -1,3 +1,4 @@
+package classes;
 import jplay.Scene;
 import jplay.URL;
 
@@ -10,8 +11,8 @@ public class Gerador {
     public static void gerarAmbiente(Ambiente amb, Scene cena){
         for(int x=0;x<16;x++) {
             for (int y = 0; y < 16; y++) {
-                if(amb.tab[x][y]==ID.SOLO.getcharID())
-                cena.changeTile(x,y, ID.SOLO.getByteId());
+                if(amb.tab[x][y]==ID.SOLO.getCharID())
+                cena.changeTile(x,y, ID.SOLO.getIntID());
                 else if(amb.tab[x][y]=='a')
                     cena.changeTile(x,y,2);
             }
