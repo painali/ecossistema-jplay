@@ -7,6 +7,7 @@ import jplay.Scene;
 import jplay.Sprite;
 import jplay.TileInfo;
 import jplay.URL;
+import jplay.Window;
 
 /**
  *
@@ -36,8 +37,17 @@ public class Ator extends Sprite {
         this.x = x;
         this.y = y;
         this.setTotalDuration(2000);
+
     }    
 
+    public Ator(Sistema sistema, int id, char nome, int energia, String fileName, int numFrames) {
+        super(fileName, numFrames);
+        this.sistema = sistema;
+        this.id = id;
+        this.nome = nome;
+        this.energia = energia;
+    }
+    
     /**
      * Controle de Caminho que não irá permitir que o personagem 
      * ultrapasse os bloqueios
@@ -90,11 +100,35 @@ public class Ator extends Sprite {
 	System.out.println("Id: " + this.getId());		
 	System.out.println("Nome: " + this.getNome());
 	System.out.println("Energia: "+ this.getEnergia());
-	//System.out.println("PosX: "+ this.x());
-	//System.out.println("PosY: "+ this.y());
+        System.out.println("X = " + this.x);
+        System.out.println("Y = " + this.y);
 	System.out.println("--------------------------");
     }    
 
+    public void moverParaEsquerda() {
+        if(this.x > 0)
+            this.x -= velocidade;
+        if(direcao != 1) {
+            setSequence(4,8);   // pega os quadros do 4 ao 8
+            direcao = 1;
+        }movendo = true;
+        
+    }
+    
+    public void mover(Window janela) {
+    
+        moverParaEsquerda();       
+        
+        update();  
+        //moveX(0.3);   // move automaticamente para o lado
+        //this.moveX(50, 50, velocidade);
+        
+        moveX(0.3);
+    //    moveY(0.3);   // move automaticamente na vertical         
+        //this.moveY(100, 200, velocidade);
+    }
+
+    
     public void setPosX(double x) {
         this.x = x;
     }

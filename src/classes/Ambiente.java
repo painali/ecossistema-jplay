@@ -7,6 +7,7 @@ import jplay.URL;
 import jplay.Window;
 
 public class Ambiente {
+
     private Window janela;
     private Scene cena;     
     public ArrayList<Ator> atorList = new ArrayList();
@@ -15,6 +16,7 @@ public class Ambiente {
     protected int numAtores;
     protected byte idRodada;
     private final Random rand = new Random();
+
     public static final int TAB_SIZE_MAX = 16;
     public static final int TAB_SIZE_MIN = 0;
 
@@ -23,7 +25,8 @@ public class Ambiente {
         janela = window;
         cena = new Scene();
         cena.loadFromFile(URL.scenario("cenario.scn"));
-        ator = new Ator(640,350,"ator.png",20);
+        ator = new Ator(650,450,"ator.png",20);
+        ator.update();
         run();
     }
     
@@ -33,7 +36,7 @@ public class Ambiente {
     
         for (int i = 0; i < TAB_SIZE_MAX; i++) 
             for (int j = 0; j < TAB_SIZE_MAX; j++) 
-                this.tab[i][j] = ID.EMPTY.getcharID();
+                this.tab[i][j] = ID.SOLO.getCharID();
     }    
 
     private void run() {
@@ -44,16 +47,13 @@ public class Ambiente {
             //ator.y += cena.getYOffset();
 
             /* Cena fixa, é o que eu preciso.. */
-            cena.draw();            
-            
-            
+            cena.draw();                  
             ator.caminho(cena);
             ator.draw();
-            //ator.mover(janela);
+            ator.mover(janela);
             janela.update();        
         }
     }
-    
     
     public void exibir() {
         for (int i = 0; i < TAB_SIZE_MAX; i++) {
@@ -66,12 +66,14 @@ public class Ambiente {
     
     public void addAtor(Ator ator, byte i, byte j) {
         atorList.add(ator);
-    	//ator.setPosX(i);
-        //ator.setPosY(j);
-        //this.tab[i][j] = ator.getNome();
+        this.tab[i][j] = ator.getNome();
         this.numAtores++;
     }
     
+    public void addAtor(Ator ator) {
+        atorList.add(ator);
+    	this.numAtores++;
+    }
 
     public void removeAtor(Ator ator) {
         atorList.remove(ator);
@@ -81,12 +83,15 @@ public class Ambiente {
     public void gerarAmbiente() {  
 
         /* Gerar junto com atores */
-        char tipoAmbiente[] = {ID.SOLO.getcharID(),ID.FOOD.getcharID()};
+        char tipoAmbiente[] = {ID.SOLO.getCharID(),ID.FOOD.getCharID()};
     	
-    	for(int i = 0; i < TAB_SIZE_MAX; i++) 
-    		for(int j = 0; j < TAB_SIZE_MAX; j++)
-    			this.setChar(tipoAmbiente[rand.nextInt(tipoAmbiente.length - 1)], (byte)i, (byte)j);
-    
+    	for(int i = 0; i < TAB_SIZE_MAX; i++) { 
+    		for(int j = 0; j < TAB_SIZE_MAX; j++) {
+                    this.setChar(tipoAmbiente[rand.nextInt(tipoAmbiente.length - 1)], (byte)i, (byte)j);
+                    // cena.changeTile(x,y,(int) parametroIntImg);
+                    
+                }
+        }
     }
     
     public byte batalha(Ator a, Ator b) {

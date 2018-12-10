@@ -7,9 +7,10 @@ package classes;
 
 public enum ID {
     
-    EMPTY( 	 ' ',1),
-    SOLO(	 '#',2),
-    FOOD(	 '+',3);
+    SOLO(' ',1),
+    FOOD('+',2),
+    ATOR('#',3);
+
     
     private final char charID;
     private final int id;
@@ -19,11 +20,11 @@ public enum ID {
     	this.id = id;
     }
 
-    public int getByteId() {
+    public int getIntID() {
     	return this.id;
     }
     
-    public char getcharID() {
+    public char getCharID() {
     	return this.charID;
     }
 
