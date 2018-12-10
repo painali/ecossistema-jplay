@@ -24,6 +24,7 @@ public class Ator extends Sprite {
     protected int id;
     protected char nome;
     protected int energia;
+    protected Ambiente ambiente;
    
     Controle controle = new Controle();
     
@@ -37,18 +38,32 @@ public class Ator extends Sprite {
         this.nome = nome;
 
     }
+    
+    
+    public Ator(int x, int y, Ambiente amb) {
+        super(null,0);
+        this.x = x;
+        this.y = y;
+        this.ambiente = amb;
+    }
 
-
+    public void addEnergia(int energia) {
+        this.energia += energia;
+    }
+    public void retiraEnergia(int energia) {
+        this.energia -= energia;
+    }
+    
     public void setPosX(int x,Ambiente amb){
 
-        amb.tab[(int) this.y][(int) this.x] = ID.SOLO.getcharID();
+        amb.tab[(int) this.y][(int) this.x] = ID.SOLO.getCharID();
         this.x = x;
         amb.tab[(int) y][x]='a';
 
 
     }
     public void setPosXY(int x,int y,Ambiente amb){
-        amb.tab[(int) this.y][(int) this.x] = ID.SOLO.getcharID();
+        amb.tab[(int) this.y][(int) this.x] = ID.SOLO.getCharID();
         this.x = x;
         this.y = y;
         amb.tab[y][x]='a';
@@ -56,8 +71,8 @@ public class Ator extends Sprite {
 
     }
 
-    ublic void setPosY(int y,Ambiente amb){
-        amb.tab[(int) this.y][(int) this.x]=ID.SOLO.getcharID();
+    public void setPosY(int y,Ambiente amb){
+        amb.tab[(int) this.y][(int) this.x]=ID.SOLO.getCharID();
         this.y = y;
         amb.tab[(int)this.y][(int) x]='a';
     }

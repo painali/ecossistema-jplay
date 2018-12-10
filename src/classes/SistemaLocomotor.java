@@ -1,4 +1,4 @@
-package classes
+package classes;
 public class SistemaLocomotor extends Sistema{
 
     protected void andar(Ator a,Ambiente amb){
