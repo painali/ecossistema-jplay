@@ -35,8 +35,32 @@ public class Ator extends Sprite {
         this.setTotalDuration(2000);
         this.id = id;
         this.nome = nome;
+
     }
-    
+
+
+    public void setPosX(int x,Ambiente amb){
+
+        amb.tab[(int) this.y][(int) this.x] = ID.SOLO.getcharID();
+        this.x = x;
+        amb.tab[(int) y][x]='a';
+
+
+    }
+    public void setPosXY(int x,int y,Ambiente amb){
+        amb.tab[(int) this.y][(int) this.x] = ID.SOLO.getcharID();
+        this.x = x;
+        this.y = y;
+        amb.tab[y][x]='a';
+
+
+    }
+
+    ublic void setPosY(int y,Ambiente amb){
+        amb.tab[(int) this.y][(int) this.x]=ID.SOLO.getcharID();
+        this.y = y;
+        amb.tab[(int)this.y][(int) x]='a';
+    }
   
     /**
      * Controle de Caminho que não irá permitir que o personagem 
